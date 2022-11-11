@@ -9,7 +9,7 @@ const db = require('./db/db.json');
 // app.use(clog);
 const uuid = require('./helper/uuid');
 const fs = require('fs');
-
+const {readFromFile, readAndAppend} = require('./helper/fsUtils')
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,25 +18,37 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/api/notes', (req, res) => {
-  res.json(db)
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 })
 
 app.post('/api/notes', (req, res) => {
-  const newNote = db
-  console.log(newNote)
-  const noteContent = { title: req.body.title, text: req.body.text, id: uuid() }
-  newNote.push(noteContent)
-  console.log(noteContent)
+  console.log(req.body);
 
-  fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(newNote))
-  res.json(newNote)
-})
+  const { title, text } = req.body;
 
+  if (req.body) {
+    const newNote = {
+      title,
+      text,
+      id: uuid(),
+    };
+
+    readAndAppend(newNote, './db/db.json');
+    res.json(`Congrats `);
+  } else {
+    res.error('Error');
+  }
+});
 
 // GET Route for notes
 app.get('/notes', (_req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
+
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+
 
 // // GET Route for feedback page
 // app.get('/feedback', (req, res) =>
@@ -50,7 +62,6 @@ app.get('/notes', (_req, res) =>
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
-
 
 // ## Gitting Started
 
