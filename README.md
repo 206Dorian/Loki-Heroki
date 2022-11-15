@@ -4,10 +4,10 @@
 
 https://dashboard.heroku.com/apps/loki-heroki
 
-## Description - Back End app, 
+## Description - Back End app
 
 
-## Installation - Insomnia, Heroku, 
+## Installation - Insomnia, Heroku
 
 https://loki-heroki.herokuapp.com/
 
