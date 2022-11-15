@@ -1,14 +1,20 @@
 # Loki-Heroki
 
 
+
+https://dashboard.heroku.com/apps/loki-heroki
+
 ## Description - Back End app, 
 
 
 ## Installation - Insomnia, Heroku, 
 
-public\assets\Heroki screenshot.png
+https://loki-heroki.herokuapp.com/
 
-public\assets\Insomnia screenshot.png
+<img src="/public/assets/Heroki screenshot.png"> 
+
+
+<img src="/public/assets/Insomnia screenshot.png">
 
 
 ## Usage - 
